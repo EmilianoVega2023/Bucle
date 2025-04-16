@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bucle - Urban Food</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-content">
+            <!-- Placeholder for main image -->
+            <div class="hero-image">
+                <!-- Nota: Reemplazar src con la imagen principal del restaurante -->
+                <img src="https://placehold.co/1200x600" alt="Bucle Restaurant">
+            </div>
+            <h1>BUCLE</h1>
+            <p>Urban Food Experience</p>
+            <div class="hero-buttons">
+                <button onclick="scrollToMenu()">Ver Menú</button>
+                <button onclick="scrollToReserve()">Reservar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <h2>NUESTRO MENÚ</h2>
+        <div class="menu-container">
+            <div class="menu-category">
+                <h3>Pizzas</h3>
+                <!-- Nota: Agregar las pizzas específicas aquí -->
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="https://placehold.co/300x200" alt="Pizza">
+                        <h4>Pizza Margherita</h4>
+                        <p>Salsa de tomate, mozzarella, albahaca</p>
+                        <span class="price">$12.99</span>
+                    </div>
+                    <!-- Agregar más items según sea necesario -->
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <h3>Hamburguesas</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="https://placehold.co/300x200" alt="Hamburguesa">
+                        <h4>Bucle Burger</h4>
+                        <p>Carne premium, queso cheddar, lechuga</p>
+                        <span class="price">$14.99</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <h3>Entre Panes</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="https://placehold.co/300x200" alt="Sandwich">
+                        <h4>Club Sandwich</h4>
+                        <p>Pollo, tocino, lechuga, tomate</p>
+                        <span class="price">$10.99</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ambiente Section -->
+    <section id="ambiente">
+        <h2>NUESTRO AMBIENTE</h2>
+        <div class="ambiente-gallery">
+            <!-- Nota: Reemplazar con imágenes reales del local -->
+            <img src="https://placehold.co/400x300" alt="Ambiente 1">
+            <img src="https://placehold.co/400x300" alt="Ambiente 2">
+            <img src="https://placehold.co/400x300" alt="Ambiente 3">
+        </div>
+    </section>
+
+    <!-- Location & Reservation Section -->
+    <section id="location-reservation">
+        <div class="location">
+            <h2>UBICACIÓN</h2>
+            <!-- Nota: Reemplazar con las coordenadas reales del local -->
+            <div id="map"></div>
+        </div>
+        
+        <div class="reservation">
+            <h2>RESERVAS</h2>
+            <form id="reservationForm">
+                <input type="date" id="date" required>
+                <input type="time" id="time" required>
+                <input type="number" id="people" placeholder="Número de personas" required>
+                <input type="text" id="name" placeholder="Nombre" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <button type="submit">Reservar</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about">
+        <h2>SOBRE NOSOTROS</h2>
+        <div class="about-content">
+            <p>Bucle nace de la pasión por la comida urbana y el deseo de crear un espacio único donde la gastronomía se encuentra con la cultura urbana.</p>
+            <!-- Nota: Personalizar esta sección con la historia real del restaurante -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                <p>&copy; 2024 Bucle. Todos los derechos reservados.</p>
+            </div>
+            <div class="contact">
+                <p>Email: info@bucle.com</p>
+                <p>Tel: (123) 456-7890</p>
+                <div class="social-media">
+                    <!-- Nota: Agregar enlaces reales a redes sociales -->
+                    <a href="#" target="_blank">Instagram</a>
+                    <a href="#" target="_blank">Facebook</a>
+                    <a href="#" target="_blank">Twitter</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <!-- Nota: Reemplazar YOUR_API_KEY con una API key real de Google Maps -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+</body>
+</html>
