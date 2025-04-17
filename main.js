@@ -16,8 +16,9 @@ function scrollToReserve() {
 
 // Google Maps initialization
 // Nota: Reemplazar las coordenadas con la ubicación real del restaurante
+// -31.63815651695578, -60.706691820121726
 function initMap() {
-    const restaurantLocation = { lat: -34.397, lng: 150.644 };
+    const restaurantLocation = { lat: 37.668210, lng: -1.701175 };
     const map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
         center: restaurantLocation,
