@@ -1,51 +1,96 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const cors = require('cors');
-const mysql = require('mysql2');
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+
 const app = express();
+const port = 3000;
 
-// Permite conexiones desde tu front-end
 app.use(cors());
-// Para entender JSON que viene desde fetch
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false })); // Para formularios HTML tradicionales
+app.use(bodyParser.json()); // Para datos JSON
 
-// Conexión a tu base de datos
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'Emiliano',
-    password: 'emi123',
-    database: 'BBDD.sql' // el nombre que le diste a la base
-});
+// Define la ruta al archivo de la base de datos SQLite
+const dbPath = path.join(__dirname, 'reservations.db');
 
-db.connect(err => {
-    if (err) {
-        console.error('Error al conectar a la base de datos:', err);
-    } else {
-        console.log('Conectado a MySQL');
-    }
-});
-
-// Endpoint POST para recibir reservas
-app.post('/api/reservas', (req, res) => {
-    const { name, email, date, time, people } = req.body;
-
-    if (!name || !email || !date || !time || !people) {
-        return res.status(400).json({ error: 'Datos incompletos' });
-    }
-
-    const sql = `INSERT INTO reservas (nombre, email, fecha, hora, personas)
-                 VALUES (?, ?, ?, ?, ?)`;
-
-    db.query(sql, [name, email, date, time, people], (err, result) => {
+// Función para crear la tabla de reservas si no existe
+function crearTablaReservas(db) {
+    db.run(`
+        CREATE TABLE IF NOT EXISTS reservations (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            date TEXT NOT NULL,
+            time TEXT NOT NULL,
+            people INTEGER NOT NULL,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    `, (err) => {
         if (err) {
-            console.error('Error al insertar reserva:', err);
-            return res.status(500).json({ error: 'Error interno del servidor' });
+            console.error('Error al crear la tabla de reservas:', err.message);
+        } else {
+            console.log('Tabla "reservations" creada o ya existente.');
         }
-        res.status(201).json({ success: true, id: result.insertId });
+    });
+}
+
+// Abre la conexión a la base de datos SQLite al iniciar el servidor
+const db = new sqlite3.Database(dbPath, (err) => {
+    if (err) {
+        console.error('Error al conectar a la base de datos SQLite:', err.message);
+    } else {
+        console.log('Conectado a la base de datos SQLite.');
+        crearTablaReservas(db);
+    }
+});
+
+app.post('/api/reservations', (req, res) => {
+    const { date, time, people, name, email } = req.body;
+    const errors = {};
+
+    if (!date) {
+        errors.date = 'La fecha es requerida.';
+    }
+    if (!time) {
+        errors.time = 'La hora es requerida.';
+    }
+    if (!people || isNaN(people) || parseInt(people) < 1) {
+        errors.people = 'El número de personas debe ser válido.';
+    }
+    if (!name || name.trim() === '') {
+        errors.name = 'El nombre es requerido.';
+    }
+    if (!email || email.trim() === '' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errors.email = 'El email debe ser válido.';
+    }
+
+    if (Object.keys(errors).length > 0) {
+        return res.status(400).json({ errors });
+    }
+
+    const sql = `INSERT INTO reservations (date, time, people, name, email) VALUES (?, ?, ?, ?, ?)`;
+    db.run(sql, [date, time, people, name, email], function(err) {
+        if (err) {
+            console.error('Error al insertar la reserva:', err.message);
+            return res.status(500).json({ message: 'Error al guardar la reserva en la base de datos.' });
+        }
+        console.log(`Reserva insertada con ID: ${this.lastID}`);
+        return res.status(201).json({ message: 'Reserva realizada con éxito!', reservationId: this.lastID });
     });
 });
 
-// Inicia el servidor
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor escuchando en http://localhost:${PORT}`);
+app.listen(port, () => {
+    console.log(`Servidor backend escuchando en http://localhost:${port}`);
+});
+
+// Cierra la conexión a la base de datos al finalizar el proceso
+process.on('SIGINT', () => {
+    db.close((err) => {
+        if (err) {
+            return console.error(err.message);
+        }
+        console.log('Cerrando la conexión a la base de datos SQLite.');
+        process.exit(0);
+    });
 });
