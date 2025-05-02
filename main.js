@@ -58,9 +58,9 @@ document.addEventListener('DOMContentLoaded', function() { // Ensure DOM is load
             const formData = {
                 date: document.getElementById('date').value,
                 time: document.getElementById('time').value,
-                people: document.getElementById('people').value,
                 name: document.getElementById('name').value,
-                email: document.getElementById('email').value
+                email: document.getElementById('email').value,
+                pedido: document.getElementById('pedido').value
             };
 
             // Validate the data (client-side - optional but good for UX)
@@ -114,12 +114,11 @@ function validateReservation(data) {
         alert('Por favor selecciona una hora');
         return false;
     }
-    const peopleCount = parseInt(data.people);
-    if (isNaN(peopleCount) || peopleCount < 1 || peopleCount > 20) {
-        alert('Por favor selecciona un número válido de personas (entre 1 y 20)');
+    if (!data.pedido || data.pedido.trim().length < 1) {
+        alert('Por favor ingresa un pedido');
         return false;
     }
-    return true;
+    return true; // All validations passed
 }
 
 // Helper function to validate email format

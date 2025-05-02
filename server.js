@@ -21,10 +21,10 @@ function crearTablaReservas(db) {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             date TEXT NOT NULL,
             time TEXT NOT NULL,
-            people INTEGER NOT NULL,
             name TEXT NOT NULL,
             email TEXT NOT NULL,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            pedido TEXT NOT NULL,
+            
         )
     `, (err) => {
         if (err) {
@@ -46,7 +46,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 });
 
 app.post('/api/reservations', (req, res) => {
-    const { date, time, people, name, email } = req.body;
+    const { date, time, name, email, pedido } = req.body;
     const errors = {};
 
     if (!date) {
@@ -55,8 +55,8 @@ app.post('/api/reservations', (req, res) => {
     if (!time) {
         errors.time = 'La hora es requerida.';
     }
-    if (!people || isNaN(people) || parseInt(people) < 1) {
-        errors.people = 'El número de personas debe ser válido.';
+    if (!pedido || pedido.trim() === '') {
+        errors.pedido = 'El pedido es requerido.';
     }
     if (!name || name.trim() === '') {
         errors.name = 'El nombre es requerido.';
@@ -70,7 +70,7 @@ app.post('/api/reservations', (req, res) => {
     }
 
     const sql = `INSERT INTO reservations (date, time, people, name, email) VALUES (?, ?, ?, ?, ?)`;
-    db.run(sql, [date, time, people, name, email], function(err) {
+    db.run(sql, [date, time, name, email, pedido], function(err) {
         if (err) {
             console.error('Error al insertar la reserva:', err.message);
             return res.status(500).json({ message: 'Error al guardar la reserva en la base de datos.' });
