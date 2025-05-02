@@ -5,7 +5,13 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
 const app = express();
-const port = 3000;
+
+
+// Inicia el servidor
+const PORT = 5173;
+app.listen(PORT, () => {
+    console.log(`Servidor escuchando en http://localhost:${PORT}`);
+});
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false })); // Para formularios HTML tradicionales
@@ -13,8 +19,9 @@ app.use(bodyParser.json()); // Para datos JSON
 
 // Define la ruta al archivo de la base de datos SQLite
 const dbPath = path.join(__dirname, 'reservations.db');
-
+console.log(`Ruta de la base de datos: ${dbPath}`);
 // Función para crear la tabla de reservas si no existe
+console.log('Intentando conectar a la base de datos...');
 function crearTablaReservas(db) {
     db.run(`
         CREATE TABLE IF NOT EXISTS reservations (
@@ -23,8 +30,7 @@ function crearTablaReservas(db) {
             time TEXT NOT NULL,
             name TEXT NOT NULL,
             email TEXT NOT NULL,
-            pedido TEXT NOT NULL,
-            
+            pedido TEXT NOT NULL,    
         )
     `, (err) => {
         if (err) {
@@ -78,11 +84,4 @@ app.post('/api/reservations', (req, res) => {
         console.log(`Reserva insertada con ID: ${this.lastID}`);
         return res.status(201).json({ message: 'Reserva realizada con éxito!', reservationId: this.lastID });
     });
-});
-
-
-// Inicia el servidor
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });

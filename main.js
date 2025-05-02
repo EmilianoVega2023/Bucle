@@ -73,9 +73,9 @@ document.getElementById('reservationForm').addEventListener('submit', function(e
     const formData = {
         date: document.getElementById('date').value,
         time: document.getElementById('time').value,
-        people: document.getElementById('people').value,
         name: document.getElementById('name').value,
-        email: document.getElementById('email').value
+        email: document.getElementById('email').value,
+        pedido: document.getElementById('pedido').value
     };
     
     // Validate the data
