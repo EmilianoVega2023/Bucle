@@ -9,46 +9,23 @@ const loader = new Loader({
     version: "weekly",
     libraries: ["maps", "places"],
   });
+
+  loader.load().then(() => {
+    const mapElement = document.getElementById("map");
+    const center = { lat: -31.6379119, lng: -60.6615448 };
   
-  loader.load().then(async () => {
-    const { Map } = await google.maps.importLibrary("maps");
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-
-  const mapElement = document.getElementById("map");
-
-  if (mapElement) {
-    const map = new Map(mapElement, {
-      center: restaurantLocation,
-      zoom: 45, // Ajusta el zoom como necesites
-      mapId: "center: { lat: -31.637911932373047, lng: -60.661544799805 }" // Puedes crear un Map ID en Google Cloud Console para personalizar estilos
-      // Si no usas Map ID, puedes definir estilos directamente aquí:
-      //styles: [ { elementType: "geometry", stylers: [{"color": "#242f3e"}] }, ... ] 
+    const map = new google.maps.Map(mapElement, {
+      center: center,
+      zoom: 14,
     });
-
-    // Crea el marcador avanzado
-    new AdvancedMarkerElement({
+  
+    new google.maps.Marker({
       map: map,
-      position: location-reservation.map ,
-      title: 'Bucle Urban Food' // Título que aparece al pasar el mouse
+      position: center,
+      title: "Bucle Urban Food",
     });
-
-  } else {
-    console.error("Elemento #map no encontrado en el DOM.");
-  }
-  
-    map = new Map(document.getElementById("map"), {
-      center: { lat: -31.637911932373047, lng: -60.661544799805 },
-      zoom: 45,
-    });
-  });
-  loader
-  .importLibrary('maps')
-  .then(({Map}) => {
-    new Map(document.getElementById("map"), mapOptions);
-  })
-  .catch((e) => {
-    console.error("Error al cargar Google Maps API:", e);
 });
+  
 // Smooth scroll function
 function smoothScroll(target) {
     document.querySelector(target).scrollIntoView({
@@ -136,30 +113,23 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
-// Function to save reservation data in localStorage
-function saveReservationLocal(data) {
-    try {
-        // Get existing reservations or create empty array
-        const existingReservations = JSON.parse(localStorage.getItem('restaurantReservations')) || [];
-        
-        // Add timestamp and reservation ID
-        const reservation = {
-            ...data,
-            id: Date.now().toString(),
-            timestamp: new Date().toISOString()
-        };
-        
-        // Add to existing reservations
-        existingReservations.push(reservation);
-        
-        // Save back to localStorage
-        localStorage.setItem('restaurantReservations', JSON.stringify(existingReservations));
-        
-        console.log('Reservation saved locally');
-    } catch (error) {
-        console.error('Error saving reservation locally:', error);
-    }
-}
+fetch('http://localhost:5173/api/reservations', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+})
+.then(response => response.json())
+.then(data => {
+    console.log('Reserva enviada al servidor:', data);
+    alert('¡Gracias por tu reserva! Te contactaremos pronto.');
+    document.getElementById('reservationForm').reset();
+})
+.catch(error => {
+    console.error('Error al enviar la reserva:', error);
+    alert('Hubo un error al enviar la reserva.');
+});
 // Lazy loading for images
 document.addEventListener('DOMContentLoaded', function() {
     const images = document.querySelectorAll('img');

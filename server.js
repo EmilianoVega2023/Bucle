@@ -30,7 +30,7 @@ function crearTablaReservas(db) {
             time TEXT NOT NULL,
             name TEXT NOT NULL,
             email TEXT NOT NULL,
-            pedido TEXT NOT NULL,    
+            pedido TEXT NOT NULL    
         )
     `, (err) => {
         if (err) {
@@ -84,4 +84,9 @@ app.post('/api/reservations', (req, res) => {
         console.log(`Reserva insertada con ID: ${this.lastID}`);
         return res.status(201).json({ message: 'Reserva realizada con éxito!', reservationId: this.lastID });
     });
+});
+const publicPath = path.join(__dirname, 'public'); // o donde tengas tu index.html
+app.use(express.static(publicPath));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(publicPath, 'index.html'));
 });
