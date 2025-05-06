@@ -23,8 +23,7 @@ function crearTablaReservas(db) {
             time TEXT NOT NULL,
             name TEXT NOT NULL,
             email TEXT NOT NULL,
-            pedido TEXT NOT NULL,
-            
+            pedido TEXT NOT NULL           
         )
     `, (err) => {
         if (err) {
