@@ -1,34 +1,56 @@
-Fase 1 – MVP (1 semana)
- Formulario de reserva funcional (frontend) HECHO
+# Nombre de tu Proyecto (¡Ponle un nombre genial!) 🚀
 
- Backend Express HECHO
+Una breve descripción atractiva de tu proyecto. ¿De qué se trata? ¿Cuál es su propósito? ✨
 
- Guardado en SQLite  HECHO
+## Estado del Proyecto 🚦
 
- Vista de administrador  CODIGO EN IA
+Este proyecto se encuentra en [Indica el estado actual: En desarrollo, Beta, Estable, etc.].
 
- Corrección de fetch + submit
+## Roadmap de Desarrollo 🗺️
 
- Mostrar reservas
+Aquí puedes visualizar las fases de tu proyecto de una manera más clara:
 
-Fase 2 – Admin & Validación (2–3 días)
- Agregar login básico para /admin
+### Fase 1 – MVP (1 semana) ✅
 
- Validación de campos
+* ✅ **Formulario de reserva funcional (frontend)**
+* ✅ **Backend Express**
+* ✅ **Guardado en SQLite**
+* 🚧 **Vista de administrador**
+* 🛠️ **Corrección de fetch + submit**
+* ⏳ **Mostrar reservas**
 
- Feedback visual al usuario
+### Fase 2 – Admin & Validación (2–3 días) ⏳
 
-Fase 3 – Pagos & Extras (1 semana)
- Implementar Mercado Pago
+* 🔒 **Agregar login básico para `/admin`**
+* ✔️ **Validación de campos**
+* 💬 **Feedback visual al usuario**
 
- Opción de enviar reserva a WhatsApp
+### Fase 3 – Pagos & Extras (1 semana) ⏳
 
- Exportar reservas a Excel/CSV
+* 💰 **Implementar Mercado Pago**
+* 💬 **Opción de enviar reserva a WhatsApp**
+* 📊 **Exportar reservas a Excel/CSV**
 
-Fase 4 – Estética & Deploy (3–5 días)
- Mejorar UI/UX
+### Fase 4 – Estética & Deploy (3–5 días) ⏳
 
- Deploy (Render + Netlify o Vercel)
+* 🎨 **Mejorar UI/UX**
+* ☁️ **Deploy (Render + Netlify o Vercel)**
+
+**Leyenda de Emojis:**
+
+* ✅: Tarea completada
+* 🚧: Código en IA (en progreso con ayuda de IA)
+* 🛠️: En corrección o refactorización
+* ⏳: Pendiente o en desarrollo
+* 🔒: Seguridad
+* ✔️: Validación
+* 💬: Interacción con el usuario
+* 💰: Pagos
+* 📊: Datos/Reportes
+* 🎨: Diseño/Interfaz
+* ☁️: Despliegue
+
+## Estructura del Proyecto 📂
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
@@ -45,25 +67,33 @@ Fase 4 – Estética & Deploy (3–5 días)
 
 
 
-To-Do List para tener una MVP funcional
- Frontend simple con formulario de reservas.  HECHO
 
- Backend con API REST (/api/reservations).  HECHO
+## To-Do List para una MVP Funcional 📝
 
- Base de datos funcional (SQLite).  HECHO
+Esta sección la puedes presentar como una lista de verificación más visual:
 
- Mover fetch() dentro del submit y usar la URL correcta (localhost:3000). 
+* ✅ Frontend simple con formulario de reservas.
+* ✅ Backend con API REST (`/api/reservations`).
+* ✅ Base de datos funcional (SQLite).
+* ✔️ Mover `fetch()` dentro del `submit` y usar la URL correcta (`localhost:3000`).
+* ✔️ Mostrar reservas en el frontend o tener una ruta GET para comprobar que se guardan.
+* ✔️ Modularizar (routes, db, etc.).
+* ✅ Evitar que la base se cree cada vez.
+* ⚠️ Agregar CORS si se usan puertos diferentes.
+* ⚠️ Validar bien el campo `people` (capturarlo del form).
+* ⚙️ Preparar para deploy (Netlify + Render por ejemplo).
+* 💳 Agregar pasarela de pagos (Mercado Pago, Stripe, etc).
 
- Mostrar reservas en el frontend o tener una ruta GET para comprobar que se guardan.
+**Leyenda de Emojis:**
 
- Modularizar (routes, db, etc.).
+* ✅: Hecho
+* ✔️: Tarea a realizar/mejorar
+* ⚠️: Importante/A tener en cuenta
+* ⚙️: Configuración/Preparación
+* 💳: Funcionalidad específica
 
- Evitar que la base se cree cada vez (ya lo hacés bien).
+## Próximos Pasos 🚀
 
- Agregar CORS si se usan puertos diferentes.
+listar de forma concisa las siguientes acciones o funcionalidades en las que trabajarás.
 
- Validar bien el campo people (lo estás validando, pero no lo capturás del form).
-
- Preparar para deploy (Netlify + Render por ejemplo).
-
- Agregar pasarela de pagos (Mercado Pago, Stripe, etc).
+## Contribuciones 🤝
