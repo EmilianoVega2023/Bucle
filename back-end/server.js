@@ -1,18 +1,33 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import sqlite3 from 'sqlite3';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import reservationRoutes from './routes/reservations.js';
+import express from 'express';
+import { handleReservation } from '../controllers/reservationsController.js';
 
-const app = express();
+
+const router = express.Router();
+router.post('/', handleReservation);
+
+export default router;
 
 
+// const publicPath = path.join(__dirname, 'public'); // o donde tengas tu index.html
+// app.use(express.static(publicPath));
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(publicPath, 'index.html'));
+// });
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // Inicia el servidor
-const PORT = 5173;
+const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
 
+app.use('/api/reservations', reservationRoutes);
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false })); // Para formularios HTML tradicionales
 app.use(bodyParser.json()); // Para datos JSON
@@ -84,9 +99,4 @@ app.post('/api/reservations', (req, res) => {
         console.log(`Reserva insertada con ID: ${this.lastID}`);
         return res.status(201).json({ message: 'Reserva realizada con éxito!', reservationId: this.lastID });
     });
-});
-const publicPath = path.join(__dirname, 'public'); // o donde tengas tu index.html
-app.use(express.static(publicPath));
-app.get('/', (req, res) => {
-    res.sendFile(path.join(publicPath, 'index.html'));
 });
