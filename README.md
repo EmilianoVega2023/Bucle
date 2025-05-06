@@ -1,10 +1,10 @@
-# Nombre de tu Proyecto (¡Ponle un nombre genial!) 🚀
+# Nombre de tu Proyecto (¡Bucle Software!) 🚀
 
 Una breve descripción atractiva de tu proyecto. ¿De qué se trata? ¿Cuál es su propósito? ✨
 
 ## Estado del Proyecto 🚦
 
-Este proyecto se encuentra en [Indica el estado actual: En desarrollo, Beta, Estable, etc.].
+Este proyecto se encuentra en [Beta].
 
 ## Roadmap de Desarrollo 🗺️
 
